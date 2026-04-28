@@ -39,3 +39,6 @@ jobs:
       - name: Probar endpoint
         run: |
           python -c "import requests; r = requests.get('http://127.0.0.1:8000'); print(r.text); assert r.status_code == 200" 
+      
+      - name: Test con Pytest
+        run: pytest
