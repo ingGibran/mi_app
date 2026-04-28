@@ -4,6 +4,30 @@ on:
   push: 
     branches: ["master"]
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: |
+          pip install fastapi uvicorn requests
+
+      - name: Levantar servidor en background
+        run: |
+          uvicorn main:app --host 127.0.0.1 --port 8000 &
+
+      - name: Esperar servidor
+        run: sleep 5
+
+      - name: Probar endpoint
+        run: |
+          python -c "import requests; r = requests.get('http://127.0.0.1:8000'); print(r.text); assert r.status_code == 200"
