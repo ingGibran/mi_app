@@ -17,17 +17,25 @@ jobs:
         with:
           python-version: "3.11"
 
+      
+      - name: Verificar archivo
+        run: |
+          if [! -f "$GITHUB_WORKSPACE/main.py"]; then
+            echo "No se encontró main.py."
+            exit 1
+          fi
+          echo "Se encontró main.py"
+
       - name: Instalar dependencias
         run: |
           pip install fastapi uvicorn requests
 
-      - name: Levantar servidor en background
+
+      - name: Levantar servidor
         run: |
           uvicorn main:app --host 127.0.0.1 --port 8000 &
 
-      - name: Esperar servidor
-        run: sleep 5
 
       - name: Probar endpoint
         run: |
-          python -c "import requests; r = requests.get('http://127.0.0.1:8000'); print(r.text); assert r.status_code == 200"
+          python -c "import requests; r = requests.get('http://127.0.0.1:8000'); print(r.text); assert r.status_code == 200" 
