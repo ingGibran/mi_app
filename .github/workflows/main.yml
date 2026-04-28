@@ -26,7 +26,7 @@ jobs:
           echo "Se encontró main.py"
 
       - name: Instalar uv
-        run: pip install uv
+        run: pip install uv; uv venv
 
       - name: Instalar dependencias con uv
         run: uv pip install fastapi requests pytest httpx
