@@ -24,7 +24,7 @@ jobs:
             echo "No se encontró main.py."
             exit 1
           fi
-          echo "Se encontró main.py"
+            echo "Se encontró main.py"
 
       - name: Instalar dependencias
         run: |
