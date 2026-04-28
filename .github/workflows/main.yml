@@ -19,7 +19,7 @@ jobs:
 
       - name: Verificar archivo
         run: |
-          if [! -f "$GITHUB_WORKSPACE/main.py"]; then
+          if [ ! -f "$GITHUB_WORKSPACE/main.py"]; then
             echo "No se encontró main.py."
             exit 1
           fi
@@ -32,4 +32,6 @@ jobs:
         run: uv pip install fastapi requests pytest httpx
 
       - name: Test con Pytest
-        run: pytest -v
+        run: |
+          source .venv/bin/activate
+          pytest -v
