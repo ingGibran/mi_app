@@ -1,4 +1,4 @@
-name: Pipeline para revisar archivo
+name: Testing con pytest
 
 on: 
   push: 
@@ -17,28 +17,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      
       - name: Verificar archivo
         run: |
           if [! -f "$GITHUB_WORKSPACE/main.py"]; then
             echo "No se encontró main.py."
             exit 1
           fi
-            echo "Se encontró main.py"
+          echo "Se encontró main.py"
 
-      - name: Instalar dependencias
-        run: |
-          pip install fastapi uvicorn requests
+      - name: Instalar uv
+        run: pip install uv
 
+      - name: Instalar dependencias con uv
+        run: uv pip install fastapi requests pytest httpx
 
-      - name: Levantar servidor
-        run: |
-          uvicorn main:app --host 127.0.0.1 --port 8000 &
-
-
-      - name: Probar endpoint
-        run: |
-          python -c "import requests; r = requests.get('http://127.0.0.1:8000'); print(r.text); assert r.status_code == 200" 
-      
       - name: Test con Pytest
-        run: pytest
+        run: pytest -v
