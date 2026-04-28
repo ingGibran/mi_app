@@ -8,6 +8,10 @@ def main():
     print("Mi BOMBOOOOOO")
     return "Mi Bomboooooo"
 
+@app.get("/sum")
+def sum(a: int, b: int):
+    return a + b
+
 
 if __name__ == "__main__":
     uvicorn.run(
