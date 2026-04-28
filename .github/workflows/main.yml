@@ -29,7 +29,7 @@ jobs:
         run: pip install uv; uv venv
 
       - name: Instalar dependencias con uv
-        run: uv pip install fastapi requests pytest httpx
+        run: uv pip install fastapi uvicorn requests pytest httpx
 
       - name: Test con Pytest
         run: |
